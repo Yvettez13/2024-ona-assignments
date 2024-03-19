@@ -87,4 +87,14 @@ ggraph(g, layout = 'kk') +
   geom_node_point(aes(colour = community), size = 5) + 
   theme_graph()
 ```
+```{r}
+ggraph(g, layout = 'kk') +  
+  geom_edge_link() +  # Adds the edges
+  geom_node_point() +  # Adds the nodes
+  geom_node_text(aes(label = Label), vjust = 1.5, size = 3) +  # Use 'Label' for node labels
+  theme_graph()  # Applies a suitable theme for graphs
+
+
+```
+
 
