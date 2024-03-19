@@ -1,7 +1,9 @@
 ---
-title: "Exercise 1"
-output:md_document: default
-date: '2024-03-18'
+title: "exercise1"
+output:
+  word_document: default
+  pdf_document: default
+date: '2024-03-19'
 ---
 
 ```{r setup, include=FALSE}
@@ -13,13 +15,14 @@ library(ggraph)
 library(igraph)
 ```
 
-##import dataset
-
-```{r}
+## R Markdown
+import dataset
+```{r cars}
 contacts_df<- read.csv("/Users/yvette/Desktop/ORGB/Connections.csv", skip = 3)
 ```
 
-##get the count of contacts + total count
+
+get the count of contacts + total count
 
 ```{r pressure, echo=FALSE}
 employer_counts <- contacts_df %>%
@@ -28,11 +31,11 @@ employer_counts <- contacts_df %>%
 print(employer_counts)
 ```
 
-
 ```{r}
 total_count <- sum(employer_counts$Count)
 print(total_count)
 ```
+
 ```{r}
 # Create a unique identifier for each contact 
 contacts_df <- contacts_df %>%
@@ -40,6 +43,7 @@ contacts_df <- contacts_df %>%
   mutate(Label = str_trim(Label))
 print(head(contacts_df))
 ```
+
 ```{r}
 # Creating the nodes dataframe
 nodes <- contacts_df %>%
@@ -53,12 +57,9 @@ edges <- contacts_df%>%
   filter(Label_x != Label_y) %>%
   select(Label_x, Label_y) %>%
   distinct()
-
 print(head(nodes))
 print(head(edges))
 ```
-
-
 ```{r}
 g = tbl_graph(nodes = nodes, edges = edges, directed = FALSE)
 g <- g %>% 
@@ -86,5 +87,4 @@ ggraph(g, layout = 'kk') +
   geom_node_point(aes(colour = community), size = 5) + 
   theme_graph()
 ```
-
 
